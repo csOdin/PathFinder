@@ -6,7 +6,7 @@
         private int sizeY = 0;
         private int sizeZ = 0;
 
-        public Map<T> Build<T>() => new(sizeX, sizeY, sizeZ);
+        public Map<T> Build<T>() => new Map<T>(sizeX, sizeY, sizeZ);
 
         public MapBuilder WithSizeX(int size)
         {

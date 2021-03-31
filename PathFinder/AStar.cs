@@ -6,13 +6,27 @@
     using System;
     using System.Collections.Generic;
 
-    public class AStar : IPathFinder<int>
+    public class AStar<T> : IPathFinder<T>
     {
-        private readonly IMap<int> _map;
+        private readonly IMap<T> _map;
 
-        public AStar(IMap<int> map) => _map = map;
+        public AStar(IMap<T> map) => _map = map;
 
-        public List<MapNode<int>> Find(MapPoint start, MapPoint end)
+        public List<MapNode<T>> Find(MapPoint start, MapPoint end) => Find(start, end, null);
+
+        public List<MapNode<T>> Find(MapNode<T> start, MapNode<T> end) => Find(start, end, null);
+
+        public List<MapNode<T>> Find(MapNode<T> start, MapNode<T> end, Func<MapNode<T>, MapNode<T>, double> heuristicFunction)
+        {
+            start = start ?? throw new ArgumentException(null, nameof(start));
+            end = end ?? throw new ArgumentException(null, nameof(end));
+
+            var _foundPath = new List<MapNode<T>>();
+
+            return _foundPath;
+        }
+
+        public List<MapNode<T>> Find(MapPoint start, MapPoint end, Func<MapNode<T>, MapNode<T>, double> heuristicFunction)
         {
             var startNode =
                 _map.Node(start.X, start.Y, start.Z)
@@ -22,17 +36,7 @@
                 _map.Node(end.X, end.Y, end.Z)
                 ?? throw new NodeOutOfMapException(end.X, end.Y, end.Z);
 
-            return Find(startNode, endNode);
-        }
-
-        public List<MapNode<int>> Find(MapNode<int> start, MapNode<int> end)
-        {
-            start = start ?? throw new ArgumentException(null, nameof(start));
-            end = end ?? throw new ArgumentException(null, nameof(end));
-
-            var _foundPath = new List<MapNode<int>>();
-
-            return _foundPath;
+            return Find(startNode, endNode, heuristicFunction);
         }
     }
 }

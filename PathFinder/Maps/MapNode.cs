@@ -1,6 +1,7 @@
 ﻿namespace csOdin.PathFinder.Maps
 {
     using csOdin.PathFinder.Utils;
+    using System;
     using System.Collections.Generic;
 
     public class MapNode<T>
@@ -18,6 +19,18 @@
         public int Y { get; private set; }
 
         public int Z { get; private set; }
+
+        public double EulerDistanceTo(MapNode<T> node)
+        {
+            var xDistane = Math.Abs(X - node.X);
+            var yDistane = Math.Abs(Y - node.Y);
+            var zDistane = Math.Abs(Z - node.Z);
+
+            var distanceXZ = Math.Sqrt(Math.Pow(xDistane, 2) + Math.Pow(zDistane, 2));
+            var distance = Math.Sqrt(Math.Pow(distanceXZ, 2) + Math.Pow(yDistane, 2));
+
+            return distance;
+        }
 
         public List<MapNode<T>> GetNeighbours()
         {
@@ -50,7 +63,7 @@
 
         public void SetWalkable() => SetWalkable(0);
 
-        internal static MapNode<T> Create(int x, int y, int z, decimal cost, Map<T> map, T data) => new()
+        internal static MapNode<T> Create(int x, int y, int z, decimal cost, Map<T> map, T data) => new MapNode<T>()
         {
             X = x,
             Y = y,

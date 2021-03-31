@@ -7,6 +7,6 @@
     {
         List<MapNode<T>> Find(MapNode<T> start, MapNode<T> end);
 
-        public List<MapNode<int>> Find(MapPoint start, MapPoint end);
+        List<MapNode<T>> Find(MapPoint start, MapPoint end);
     }
 }

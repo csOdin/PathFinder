@@ -1,14 +1,15 @@
-namespace PathFinder.Tests
+﻿namespace csOdin.PathFinder.Maps.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
-    using FluentAssertions;
     using System.Linq;
-    using Xunit;
+    using FluentAssertions;
 
-    public class MapTests
+    [TestClass()]
+    public class MapBuilderTests
     {
-        [Fact]
+        [TestMethod]
         public void MapBuilderShouldBuildMap()
         {
             var sizeX = 10;

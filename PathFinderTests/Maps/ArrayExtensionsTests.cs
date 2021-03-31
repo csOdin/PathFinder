@@ -1,17 +1,15 @@
-﻿namespace PathFinder.Tests
+﻿namespace csOdin.PathFinder.Maps.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
-    using FluentAssertions;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Xunit;
+    using FluentAssertions;
 
+    [TestClass()]
     public class ArrayExtensionsTests
     {
-        [Fact]
+        [TestMethod]
         public void ThreeArrayLoopShouldLoopProperly()
         {
             var sizeX = 5;
@@ -34,7 +32,7 @@
             result.Should().Be(expectedResult);
         }
 
-        [Fact]
+        [TestMethod]
         public void ThreeDimensionArrayLoopShouldLoopProperly()
         {
             var sizeX = 5;
