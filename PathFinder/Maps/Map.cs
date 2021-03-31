@@ -1,10 +1,10 @@
 ﻿namespace csOdin.PathFinder
 {
+    using csOdin.PathFinder.Interfaces;
+    using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
-    using System;
-    using System.Collections.Generic;
 
-    public class Map<T> : IMap
+    public class Map<T> : IMap<T>
     {
         private readonly MapNode<T>[,,] _nodes;
 

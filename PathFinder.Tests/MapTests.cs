@@ -1,9 +1,8 @@
 namespace PathFinder.Tests
 {
-    using csOdin.PathFinder;
+    using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
     using FluentAssertions;
-    using System;
     using System.Linq;
     using Xunit;
 

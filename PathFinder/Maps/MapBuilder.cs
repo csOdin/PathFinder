@@ -1,4 +1,4 @@
-﻿namespace csOdin.PathFinder
+﻿namespace csOdin.PathFinder.Maps
 {
     public class MapBuilder
     {

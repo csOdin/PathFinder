@@ -1,60 +1,38 @@
 ﻿namespace csOdin.PathFinder
 {
+    using csOdin.PathFinder.Exceptions;
+    using csOdin.PathFinder.Interfaces;
+    using csOdin.PathFinder.Maps;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class AStar : IPathFinder<int>
     {
-        private readonly IMap _map;
+        private readonly IMap<int> _map;
 
-        public AStar(IMap map) => _map = map;
+        public AStar(IMap<int> map) => _map = map;
+
+        public List<MapNode<int>> Find(MapPoint start, MapPoint end)
+        {
+            var startNode =
+                _map.Node(start.X, start.Y, start.Z)
+                ?? throw new NodeOutOfMapException(start.X, start.Y, start.Z);
+
+            var endNode =
+                _map.Node(end.X, end.Y, end.Z)
+                ?? throw new NodeOutOfMapException(end.X, end.Y, end.Z);
+
+            return Find(startNode, endNode);
+        }
 
         public List<MapNode<int>> Find(MapNode<int> start, MapNode<int> end)
         {
-            if (start == null)
-            {
-                throw new ArgumentException(null, nameof(start));
-            }
-
-            if (end == null)
-            {
-                throw new ArgumentException(null, nameof(end));
-            }
+            start = start ?? throw new ArgumentException(null, nameof(start));
+            end = end ?? throw new ArgumentException(null, nameof(end));
 
             var _foundPath = new List<MapNode<int>>();
 
-            _foundPath = ProcessNode(start, end, _foundPath);
-
             return _foundPath;
-        }
-
-        private List<MapNode<int>> ProcessNode(MapNode<int> node, MapNode<int> goal, List<MapNode<int>> path)
-        {
-            path.Add(node);
-            if (node.IsSameLocationThan(goal))
-            {
-                return path;
-            }
-
-            foreach (var neighbour in node.GetNeighbours())
-            {
-                if (!neighbour.IsWalkable)
-                {
-                    continue;
-                }
-
-                if (path.Contains(neighbour))
-                {
-                    continue;
-                }
-
-                return ProcessNode(neighbour, goal, path);
-            }
-
-            return path;
         }
     }
 }

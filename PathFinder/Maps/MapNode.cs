@@ -1,10 +1,8 @@
-﻿using csOdin.PathFinder.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace csOdin.PathFinder
+﻿namespace csOdin.PathFinder.Maps
 {
+    using csOdin.PathFinder.Utils;
+    using System.Collections.Generic;
+
     public class MapNode<T>
     {
         private MapNode()
