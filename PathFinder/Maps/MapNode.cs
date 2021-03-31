@@ -6,19 +6,19 @@
 
     public class MapNode<T>
     {
-        private MapNode()
+        protected MapNode()
         {
         }
 
-        public decimal Cost { get; private set; }
+        public double Cost { get; protected set; }
         public T Data { get; set; }
-        public bool IsWalkable { get; private set; }
-        public Map<T> Map { get; private set; }
-        public int X { get; private set; }
+        public bool IsWalkable { get; protected set; }
+        public Map<T> Map { get; protected set; }
+        public int X { get; protected set; }
 
-        public int Y { get; private set; }
+        public int Y { get; protected set; }
 
-        public int Z { get; private set; }
+        public int Z { get; protected set; }
 
         public double EulerDistanceTo(MapNode<T> node)
         {
@@ -55,7 +55,7 @@
             Cost = int.MaxValue;
         }
 
-        public void SetWalkable(decimal cost)
+        public void SetWalkable(double cost)
         {
             SetWalkable();
             Cost = cost;
@@ -63,7 +63,7 @@
 
         public void SetWalkable() => SetWalkable(0);
 
-        internal static MapNode<T> Create(int x, int y, int z, decimal cost, Map<T> map, T data) => new MapNode<T>()
+        internal static MapNode<T> Create(int x, int y, int z, double cost, Map<T> map, T data) => new MapNode<T>()
         {
             X = x,
             Y = y,

@@ -1,12 +1,14 @@
 ﻿namespace csOdin.PathFinder.Interfaces
 {
     using csOdin.PathFinder.Maps;
+    using System;
     using System.Collections.Generic;
 
-    public interface IPathFinder<T>
+    public interface IPathFinder<TData, TMapNode>
+        where TMapNode : MapNode<TData>
     {
-        List<MapNode<T>> Find(MapNode<T> start, MapNode<T> end);
+        List<TMapNode> Find(TMapNode start, TMapNode end, Func<TMapNode, TMapNode, double> heuristicFunction = null);
 
-        List<MapNode<T>> Find(MapPoint start, MapPoint end);
+        List<TMapNode> Find(MapPoint start, MapPoint end, Func<TMapNode, TMapNode, double> heuristicFunction = null);
     }
 }
