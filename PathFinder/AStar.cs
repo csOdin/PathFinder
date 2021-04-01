@@ -24,6 +24,9 @@
             start = start ?? throw new ArgumentException(null, nameof(start));
             end = end ?? throw new ArgumentException(null, nameof(end));
 
+            _map[start.X, start.Y, start.Z].GCost = 0;
+            _map[start.X, start.Y, start.Z].HCost = CalculateHScore(start, end, heuristicFunction);
+
             var openSet = new AStarNode<TData>[] { start };
 
             while (openSet.Length != 0)
