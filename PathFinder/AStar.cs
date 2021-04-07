@@ -7,6 +7,7 @@
     using csOdin.PathFinder.Utils;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class AStar<TData, TMapNode> : IPathFinder<TData, AStarNode<TData>>
         where TMapNode : MapNode<TData>
@@ -27,11 +28,33 @@
             _map[start.X, start.Y, start.Z].GCost = 0;
             _map[start.X, start.Y, start.Z].HCost = CalculateHScore(start, end, heuristicFunction);
 
-            var openSet = new AStarNode<TData>[] { start };
+            var openSet = new List<AStarNode<TData>>() { start };
+            // TODO: Mirar de cambiar por Priority Queue
 
-            while (openSet.Length != 0)
+            while (!openSet.Any())
             {
-                // implement loop
+                var current = openSet.OrderBy(i => i.FCost).First();
+                if (current.IsSameLocationThan(end))
+                {
+                    return ReconstructPath(current);
+                }
+
+                openSet.Remove(current);
+                foreach (var neighbour in current.GetNeighbours())
+                {
+                    var aStarNeighbour = _map[neighbour.X, neighbour.Y, neighbour.Z];
+                    var tentative_gCost = current.GCost + aStarNeighbour.Cost;
+                    if (tentative_gCost < aStarNeighbour.GCost)
+                    {
+                        aStarNeighbour.CameFrom = current;
+                        aStarNeighbour.GCost = tentative_gCost;
+                        aStarNeighbour.HCost = CalculateHScore(aStarNeighbour, end, heuristicFunction);
+                        if (!openSet.Contains(aStarNeighbour))
+                        {
+                            openSet.Add(aStarNeighbour);
+                        }
+                    }
+                }
             }
 
             throw new PathNotFoundException(start.ToMapPoint(), end.ToMapPoint());
@@ -54,5 +77,18 @@
             heuristicFunction == null
                 ? from.EulerDistanceTo(to)
                 : heuristicFunction(from, to);
+
+        private List<AStarNode<TData>> ReconstructPath(AStarNode<TData> node)
+        {
+            var path = new List<AStarNode<TData>>() { node };
+
+            while (node.CameFrom != null)
+            {
+                path.Insert(0, node.CameFrom);
+                node = node.CameFrom;
+            }
+
+            return path;
+        }
     }
 }

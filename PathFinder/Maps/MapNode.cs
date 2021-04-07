@@ -32,7 +32,7 @@
             return distance;
         }
 
-        public List<MapNode<T>> GetNeighbours()
+        public virtual List<MapNode<T>> GetNeighbours()
         {
             var returnList = new List<MapNode<T>>();
             var delta = new[] { -1, 0, 1 };
