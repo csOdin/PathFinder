@@ -5,7 +5,7 @@
     using System.Runtime.Serialization;
 
     [Serializable]
-    internal class PathNotFoundException : Exception
+    public class PathNotFoundException : Exception
     {
         public PathNotFoundException(MapPoint from, MapPoint to)
         {

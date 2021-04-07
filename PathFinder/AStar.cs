@@ -9,8 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AStar<TData, TMapNode> : IPathFinder<TData, AStarNode<TData>>
-        where TMapNode : MapNode<TData>
+    public class AStar<TData> : IPathFinder<TData, AStarNode<TData>>
     {
         private readonly AStarNode<TData>[,,] _map;
 
@@ -31,7 +30,7 @@
             var openSet = new List<AStarNode<TData>>() { start };
             // TODO: Mirar de cambiar por Priority Queue
 
-            while (!openSet.Any())
+            while (openSet.Any())
             {
                 var current = openSet.OrderBy(i => i.FCost).First();
                 if (current.IsSameLocationThan(end))
@@ -62,13 +61,8 @@
 
         public List<AStarNode<TData>> Find(MapPoint start, MapPoint end, Func<AStarNode<TData>, AStarNode<TData>, double> heuristicFunction = null)
         {
-            var startNode =
-                _map[start.X, start.Y, start.Z]
-                ?? throw new NodeOutOfMapException(start.X, start.Y, start.Z);
-
-            var endNode =
-                _map[end.X, end.Y, end.Z]
-                ?? throw new NodeOutOfMapException(end.X, end.Y, end.Z);
+            var startNode = _map[start.X, start.Y, start.Z];
+            var endNode = _map[end.X, end.Y, end.Z];
 
             return Find(startNode, endNode, heuristicFunction);
         }
