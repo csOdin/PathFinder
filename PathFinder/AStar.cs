@@ -1,12 +1,12 @@
 ﻿namespace csOdin.PathFinder
 {
     using csOdin.PathFinder.Exceptions;
+    using csOdin.PathFinder.Extensions;
     using csOdin.PathFinder.Interfaces;
     using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class AStar<TData, TMapNode> : IPathFinder<TData, AStarNode<TData>>
         where TMapNode : MapNode<TData>
@@ -34,7 +34,7 @@
                 // implement loop
             }
 
-            return _foundPath;
+            throw new PathNotFoundException(start.ToMapPoint(), end.ToMapPoint());
         }
 
         public List<AStarNode<TData>> Find(MapPoint start, MapPoint end, Func<AStarNode<TData>, AStarNode<TData>, double> heuristicFunction = null)
