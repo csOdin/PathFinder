@@ -12,7 +12,7 @@
         public void Find2DxyFromCornerToCornershouldreturnDiagonalPath()
         {
             var mapSize = 100;
-            var map = new Map2Dxy<int>(mapSize, mapSize);
+            var map = Map<int>.Create2Dxy(mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dxy(0, 0);
@@ -32,7 +32,7 @@
         public void Find2DxzFromCornerToCornershouldreturnDiagonalPath()
         {
             var mapSize = 100;
-            var map = new Map2Dxz<int>(mapSize, mapSize);
+            var map = Map<int>.Create2Dxz(mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dxz(0, 0);
@@ -52,7 +52,7 @@
         public void Find2DyzFromCornerToCornershouldreturnDiagonalPath()
         {
             var mapSize = 100;
-            var map = new Map2Dyz<int>(mapSize, mapSize);
+            var map = Map<int>.Create2Dyz(mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dyz(0, 0);
@@ -72,7 +72,7 @@
         public void FindFromCornerToCornershouldreturnDiagonalPath()
         {
             var mapSize = 100;
-            var map = new MapBuilder().WithSizeX(mapSize).WithSizeY(mapSize).WithSizeZ(mapSize).Build<int>();
+            var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = 0, Y = 0, Z = 0 };
@@ -99,7 +99,8 @@
         [DataRow(0, 0, 0, 2, 2, -1)]
         public void FindFromNonExistingMapNodesShuoldThrowException(int startX, int startY, int StartZ, int endX, int endY, int endZ)
         {
-            var map = new MapBuilder().WithSizeX(3).WithSizeY(3).WithSizeZ(3).Build<int>();
+            var mapSize = 3;
+            var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = startX, Y = startY, Z = StartZ };
@@ -110,7 +111,8 @@
         [TestMethod]
         public void FindWhenStartAndEndAreTheSameshouldReturnOneNodePath()
         {
-            var map = new MapBuilder().WithSizeX(3).WithSizeY(3).WithSizeZ(3).Build<int>();
+            var mapSize = 3;
+            var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
             var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = 0, Y = 0, Z = 0 };

@@ -1,10 +1,10 @@
 ﻿namespace csOdin.PathFinder.Maps.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using csOdin.PathFinder.Maps;
     using csOdin.PathFinder.Utils;
-    using System.Linq;
     using FluentAssertions;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Linq;
 
     [TestClass()]
     public class MapBuilderTests
@@ -16,7 +16,7 @@
             var sizeY = 20;
             var sizeZ = 30;
 
-            var map = new MapBuilder().WithSizeX(sizeX).WithSizeY(sizeY).WithSizeZ(sizeZ).Build<int>();
+            var map = Map<int>.Create3D(sizeX, sizeY, sizeZ);
 
             var arrayX = Enumerable.Range(0, sizeX).ToArray();
             var arrayY = Enumerable.Range(0, sizeY).ToArray();

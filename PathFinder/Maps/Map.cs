@@ -8,7 +8,7 @@
     {
         private readonly MapNode<T>[,,] _nodes;
 
-        internal Map(int sizeX, int sizeY, int sizeZ)
+        private Map(int sizeX, int sizeY, int sizeZ)
         {
             SizeX = sizeX;
             SizeY = sizeY;
@@ -25,6 +25,14 @@
         public int SizeX { get; }
         public int SizeY { get; }
         public int SizeZ { get; }
+
+        public static Map<T> Create2Dxy(int sizeX, int sizeY) => new Map<T>(sizeX, sizeY, 1);
+
+        public static Map<T> Create2Dxz(int sizeX, int sizeZ) => new Map<T>(sizeX, 1, sizeZ);
+
+        public static Map<T> Create2Dyz(int sizeY, int sizeZ) => new Map<T>(1, sizeY, sizeZ);
+
+        public static Map<T> Create3D(int sizeX, int sizeY, int sizeZ) => new Map<T>(sizeX, sizeY, sizeZ);
 
         public MapNode<T> Node(int x, int y, int z) =>
             x < 0 || x > _nodes.GetUpperBound(0) ||
