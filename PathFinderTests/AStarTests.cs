@@ -13,11 +13,11 @@
         {
             var mapSize = 100;
             var map = Map<int>.Create2Dxy(mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dxy(0, 0);
             var end = new MapPoint2Dxy(mapSize - 1, mapSize - 1);
-            var path = pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            var path = pathFinder.Find();
 
             path.Count.Should().Be(mapSize);
 
@@ -33,11 +33,11 @@
         {
             var mapSize = 100;
             var map = Map<int>.Create2Dxz(mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dxz(0, 0);
             var end = new MapPoint2Dxz(mapSize - 1, mapSize - 1);
-            var path = pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            var path = pathFinder.Find();
 
             path.Count.Should().Be(mapSize);
 
@@ -53,11 +53,11 @@
         {
             var mapSize = 100;
             var map = Map<int>.Create2Dyz(mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint2Dyz(0, 0);
             var end = new MapPoint2Dyz(mapSize - 1, mapSize - 1);
-            var path = pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            var path = pathFinder.Find();
 
             path.Count.Should().Be(mapSize);
 
@@ -73,11 +73,11 @@
         {
             var mapSize = 100;
             var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = 0, Y = 0, Z = 0 };
             var end = new MapPoint() { X = mapSize - 1, Y = mapSize - 1, Z = mapSize - 1 };
-            var path = pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            var path = pathFinder.Find();
 
             path.Count.Should().Be(mapSize);
 
@@ -101,11 +101,11 @@
         {
             var mapSize = 3;
             var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = startX, Y = startY, Z = StartZ };
             var end = new MapPoint() { X = endX, Y = endY, Z = endZ };
-            pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            pathFinder.Find();
         }
 
         [TestMethod]
@@ -113,11 +113,11 @@
         {
             var mapSize = 3;
             var map = Map<int>.Create3D(mapSize, mapSize, mapSize);
-            var pathFinder = new AStar<int>(map);
 
             var start = new MapPoint() { X = 0, Y = 0, Z = 0 };
             var end = new MapPoint() { X = 0, Y = 0, Z = 0 };
-            var path = pathFinder.Find(start, end);
+            var pathFinder = new AStar<int>(map, start, end);
+            var path = pathFinder.Find();
 
             path.Count.Should().Be(1);
             path.First().X.Should().Be(0);
