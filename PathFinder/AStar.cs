@@ -11,10 +11,10 @@
 
     public class AStar<TData> : IPathFinder<TData, AStarNode<TData>>
     {
-        private AStarNode<TData> _end;
-        private Func<AStarNode<TData>, AStarNode<TData>, double> _heuristicFunction = null;
-        private AStarNode<TData>[,,] _map;
-        private AStarNode<TData> _start;
+        private readonly AStarNode<TData> _end;
+        private readonly Func<AStarNode<TData>, AStarNode<TData>, double> _heuristicFunction = null;
+        private readonly AStarNode<TData>[,,] _map;
+        private readonly AStarNode<TData> _start;
 
         public AStar(IMap<TData> map, MapPoint start, MapPoint end, Func<AStarNode<TData>, AStarNode<TData>, double> heuristicFunction = null)
         {
