@@ -3,9 +3,8 @@
     using csOdin.PathFinder.Maps;
     using System.Collections.Generic;
 
-    public interface IPathFinder<TData, TMapNode>
-        where TMapNode : MapNode<TData>
+    public interface IPathFinder<TData>
     {
-        List<TMapNode> Find();
+        List<MapNode<TData>> Find();
     }
 }

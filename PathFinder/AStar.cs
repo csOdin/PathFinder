@@ -9,7 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AStar<TData> : IPathFinder<TData, AStarNode<TData>>
+    public class AStar<TData> : IPathFinder<TData>
     {
         private readonly AStarNode<TData> _end;
         private readonly Func<AStarNode<TData>, AStarNode<TData>, double> _heuristicFunction = null;
@@ -28,7 +28,7 @@
             _end = endNode ?? throw new ArgumentException(null, nameof(end));
         }
 
-        public List<AStarNode<TData>> Find()
+        public List<MapNode<TData>> Find()
         {
             _map[_start.X, _start.Y, _start.Z].GCost = 0;
             _map[_start.X, _start.Y, _start.Z].HCost = CalculateHScore(_start, _end, _heuristicFunction);
@@ -70,9 +70,9 @@
                 ? from.EulerDistanceTo(to)
                 : heuristicFunction(from, to);
 
-        private List<AStarNode<TData>> ReconstructPath(AStarNode<TData> node)
+        private List<MapNode<TData>> ReconstructPath(AStarNode<TData> node)
         {
-            var path = new List<AStarNode<TData>>() { node };
+            var path = new List<MapNode<TData>>() { node };
 
             while (node.CameFrom != null)
             {
