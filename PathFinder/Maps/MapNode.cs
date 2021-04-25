@@ -1,5 +1,6 @@
 ﻿namespace csOdin.PathFinder.Maps
 {
+    using csOdin.PathFinder.Enums;
     using csOdin.PathFinder.Utils;
     using System;
     using System.Collections.Generic;
@@ -62,6 +63,36 @@
         }
 
         public void SetWalkable() => SetWalkable(0);
+
+        public RelativeLocation RelativeFrom(MapNode<T> node)
+        {
+            var incrX = X - node.X;
+            var incrY = Y - node.Y;
+            var incrZ = Z - node.Z;
+
+            var relativeLocationCode = (100 + incrX) * 1000000 + (100 + incrY) * 1000 + (100 + incrZ);
+            try
+            {
+                return (RelativeLocation)relativeLocationCode;
+            }
+            catch
+            {
+                return RelativeLocation.None;
+            }
+        }
+
+        public MapNode<T> GetRelative(RelativeLocation relativeLocation)
+        {
+            var relativeLocationCode = (int)relativeLocation;
+            var XBlock = (relativeLocationCode / 1000000);
+            var YBlock = ((relativeLocationCode - XBlock) / 1000);
+            var ZBlock = (relativeLocationCode - YBlock);
+            var incrX = XBlock - 100;
+            var incrY = YBlock - 100;
+            var incrZ = ZBlock - 100;
+
+            return Map.Node(X + incrX, Y + incrY, Z + incrZ);
+        }
 
         internal static MapNode<T> Create(int x, int y, int z, double cost, Map<T> map, T data) => new MapNode<T>()
         {
